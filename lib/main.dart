@@ -96,6 +96,8 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
 class FoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -158,7 +160,7 @@ class FoodPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                     
+                      
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -196,7 +198,7 @@ class FoodPage extends StatelessWidget {
                 title: 'Crunchy Nut Coleslaw',
                 cookTime: '10 Mins',
                 rating: 3.5,
-                imageUrl: 'assets/images/food_image.png',
+                imageUrl: 'assets/images/burger.jpg',
                 authorName: 's',
                 authorImageUrl: 'assets/images/Avatar.png',
               ),
@@ -221,13 +223,8 @@ class FoodPage extends StatelessWidget {
             ]),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           notchMargin: 6.0,
@@ -238,20 +235,20 @@ class FoodPage extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.home),
                 onPressed: () {
-                  
+                 
                 },
               ),
               IconButton(
                 icon: Icon(Icons.bookmark_border),
                 onPressed: () {
-                  
+                 
                 },
               ),
               SizedBox(width: 48),
               IconButton(
                 icon: Icon(Icons.notifications_none),
                 onPressed: () {
-                  
+                 
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => FoodMenuPage()),
@@ -261,7 +258,7 @@ class FoodPage extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.person_outline),
                 onPressed: () {
-                 
+                  
                 },
               ),
             ],
@@ -271,6 +268,7 @@ class FoodPage extends StatelessWidget {
     );
   }
 }
+
    
 class CuisineCategoryChip extends StatelessWidget {
   final String label;
@@ -331,9 +329,9 @@ class RecipeCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(
+            child: Image.asset(
               imageUrl,
-              height: 120,
+              height: 50,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -368,9 +366,9 @@ class RecipeCard extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(authorImageUrl),
-                radius: 12,
-              ),
+              backgroundImage: AssetImage(authorImageUrl), 
+              radius: 12,
+            ),
               SizedBox(width: 4),
               Text(
                 authorName,
@@ -406,7 +404,7 @@ class NewRecipesSection extends StatelessWidget {
             title: 'Steak with tomato...',
             cookTime: '20 mins',
             rating: 5.0,
-            imageUrl: 'https://example.com/images/steak.jpg',
+            imageUrl: 'assets/images/burger.jpg',
             authorName: 'James Milner',
             authorImageUrl: 'https://example.com/images/james.jpg',
           ),
@@ -414,7 +412,7 @@ class NewRecipesSection extends StatelessWidget {
             title: 'Pilaf sweet...',
             cookTime: '30 mins',
             rating: 4.0,
-            imageUrl: 'https://example.com/images/pilaf.jpg',
+            imageUrl: 'assets/images/burger.jpg',
             authorName: 'Laura Ipsum',
             authorImageUrl: 'https://example.com/images/laura.jpg',
           ),
@@ -685,7 +683,11 @@ class FollowPage extends StatelessWidget {
                     subtitle: Text('Lagos, Nigeria'),
                     trailing: ElevatedButton(
                       onPressed: () {
-                        // Follow button logic
+                        
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SearchFoodPage()),
+                        );
                       },
                       child: Text('Follow'),
                       style: ElevatedButton.styleFrom(
@@ -708,11 +710,11 @@ class FollowPage extends StatelessWidget {
                           ],
                         ),
                         Container(
-                          height: 400, 
+                          height: 400,
                           child: TabBarView(
                             children: [
-                              ProcedureList(), 
-                              IngredientList(), 
+                              ProcedureList(),
+                              IngredientList(),
                             ],
                           ),
                         ),
@@ -728,6 +730,7 @@ class FollowPage extends StatelessWidget {
     );
   }
 }
+
 
 class ProcedureList extends StatelessWidget {
   @override
@@ -778,6 +781,126 @@ class IngredientList extends StatelessWidget {
           trailing: Text(ingredient['quantity']),
         );
       },
+    );
+  }
+}
+
+
+
+// class SearchFoodPage extends StatelessWidget {
+//   final List<FoodItemModel> foodItems = [
+//     FoodItemModel(
+//       title: 'Traditional Spare Ribs Baked',
+//       chefName: 'Chef John',
+//       rating: '4.5',
+//       imagePath: 'assets/images/Card.png',
+//     ),
+//     FoodItemModel(
+//       title: '',
+//       chefName: '',
+//       rating: '',
+//       imagePath: 'assets/images/Card.png',
+//     ),
+//     // Add more food items as needed...
+//   ];
+
+ class SearchFoodPage extends StatelessWidget {
+  final List<FoodItemModel> foodItems = [
+    FoodItemModel(imagePath: 'assets/images/Card.png'),
+    FoodItemModel(imagePath: 'assets/images/Card1.png'),
+    FoodItemModel(imagePath: 'assets/images/Card2.png'),
+    FoodItemModel(imagePath: 'assets/images/Card3.png'),
+    FoodItemModel(imagePath: 'assets/images/Card.png'),
+    FoodItemModel(imagePath: 'assets/images/Card1.png'),
+    
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Search recipes'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search recipe',
+                filled: true,
+                fillColor: Colors.white,
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+                suffixIcon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/images/Filter.png',
+                  width: 30,
+                  height: 30,
+                ),
+              ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              itemCount: foodItems.length,
+              itemBuilder: (context, index) {
+                final item = foodItems[index];
+                return FoodItem(
+                  imagePath: item.imagePath,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FoodItemModel {
+  final String imagePath;
+
+  FoodItemModel({required this.imagePath});
+}
+
+class FoodItem extends StatelessWidget {
+  final String imagePath;
+
+  const FoodItem({
+    Key? key,
+    required this.imagePath,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Image.asset(
+        imagePath,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
